@@ -7,7 +7,6 @@ class SelectAreaOfInterest():
     def __init__(self, ax, img):
         self.points = []
         self.figure = plt.figure(1)
-        self.button_pressed = False
         self.img = img
         self.circle_diameter = 30
         self.ax = ax
@@ -18,13 +17,10 @@ class SelectAreaOfInterest():
         canvas.mpl_connect('button_release_event', self.button_release_callback)
 
     def button_press_callback(self, event):
-        if (event.button == 1):
-            self.button_pressed = True
-            self.points.append((int(event.xdata), int(event.ydata)))
-            cv2.circle(self.img, self.points[-1], self.circle_diameter, self.color, -1)
+        self.points.append((int(event.xdata), int(event.ydata)))
+        cv2.circle(self.img, self.points[-1], self.circle_diameter, self.color, -1)
 
     def button_release_callback(self,click):
-        self.button_pressed = False
         self.ax.images.pop()
         self.ax.imshow(self.img, alpha=0.2)
         plt.draw()
