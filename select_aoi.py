@@ -7,6 +7,7 @@ class SelectAreaOfInterest():
     def __init__(self, ax, img):
         self.img = img
         self.points = []
+        self.lines = []
         self.figure = plt.figure(1)
         self.circle_img = np.copy(img)
         self.circle_diameter = 30
@@ -44,7 +45,7 @@ class SelectAreaOfInterest():
                 self.status = 'lines'
             elif self.status == 'lines':
                 self.is_line = False
-                print('Data processing...')
+                print('Data processing... Close window to go further')
 
     def button_release_callback(self, event):
         if ((self.db_click == True and self.is_circle == True) or self.is_line == True):
@@ -77,12 +78,14 @@ class SelectAreaOfInterest():
 
     ### PROCESSING ###
 
+
     def prepare_lines(self):
-        lines = []
         pt_len = len(self.points)
         for i in range(0, pt_len-1):
             pt1 = self.points[i]
             pt2 = self.points[i+1]
-            lines.append([pt1, pt2])
-        return lines
+            self.lines.append([pt1, pt2])
+        return self.lines
 
+
+    
