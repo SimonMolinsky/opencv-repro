@@ -1,3 +1,7 @@
+# Zakomentować dwie pierwsze linijki jak nie MacOS!!!
+import matplotlib
+matplotlib.use('TkAgg') 
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
