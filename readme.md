@@ -64,26 +64,20 @@ I assume that you're using Linux operating system, but if you are able to instal
 > python main.py
 2. New window opens. You see your sample there:
 ![Sample Image](/tutorial_images/img1.png)
-Format: ![Alt Text](url)
 3. We must enclose the sample in ROI. To achieve this you must instruct program where the sample is placed and you need for it a set of points. If you use _left mouse double-click_ then you select a point. Select a group of points along the sample as in the image:
 ![Points](/tutorial_images/img2.png)
-Format: ![Alt Text](url)
 4. If you end your selection _click right button of the mouse_. You should see special entry in the terminal:
 ![Sample Image](/tutorial_images/img3.png)
-Format: ![Alt Text](url)
 
 
 ### Program: ROI selection phase, Output (ROI) and horizontal reprojection
 
 1. Use your _mouse scroll button_ to resize ROI to the desired dimension and use _right button_ to apply it:
 ![Sample Image](/tutorial_images/img4.png)
-Format: ![Alt Text](url)
 2. Close the window and look into the ROI selection before and after denoising by median filter:
 ![Sample Image](/tutorial_images/img5.png)
-Format: ![Alt Text](url)
 3. Close the windows and look into a final product of a projection:
 ![Sample Image](/tutorial_images/img6.png)
-Format: ![Alt Text](url)
 4. You may save it from the matplotlib window and use it for different purposes.
 
 -----
