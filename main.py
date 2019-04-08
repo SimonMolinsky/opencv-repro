@@ -101,18 +101,24 @@ def project_to_horizontal_line(masked_region, coordinates, thickness):
     for i in xs:
         dy_bottom = int(coordinates_list[i][1] - int(thickness / 2))
         dy_top = int(coordinates_list[i][1] + int(thickness / 2))
-        image_slice[:, i] = masked_region[dy_bottom:dy_top, i]
+        try:
+        	image_slice[:, i] = masked_region[dy_bottom:dy_top, i]
+        except ValueError:
+        	pass
 
     return image_slice
 
 
 if __name__ == '__main__':
-    image = 'check.png'
-    image = cv2.imread(image)
-    roi = draw_mask(image)
-    mask = mask_region(image, roi[0], roi[1])
-    img_slice = project_to_horizontal_line(mask[0], roi[0], roi[1])
-    plt.figure()
-    plt.imshow(img_slice)
-    plt.show()
+    images = ['check', 'plytka', 'szklo', 'PS5']
+    ending = '.png'
+    for image in images:
+        image = image + ending
+        image = cv2.imread(image)
+        roi = draw_mask(image)
+        mask = mask_region(image, roi[0], roi[1])
+        img_slice = project_to_horizontal_line(mask[0], roi[0], roi[1])
+        plt.figure()
+        plt.imshow(img_slice)
+        plt.show()
     
