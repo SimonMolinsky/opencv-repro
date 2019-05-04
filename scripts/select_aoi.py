@@ -88,4 +88,5 @@ class SelectAreaOfInterest():
         return self.lines
 
 
+class SelectPoints
     
