@@ -88,5 +88,36 @@ class SelectAreaOfInterest():
         return self.lines
 
 
-class SelectPoints
-    
+class SelectPoints():
+
+    def __init__(self, ax, img):
+        self.img = img
+        self.points = []
+        self.figure = plt.figure(1)
+        self.circle_img = np.copy(img)
+        self.circle_diameter = 5
+        self.is_circle = True
+        self.ax = ax
+        self.color_circle = (255, 0, 0)
+        self.db_click = False
+
+        canvas = self.figure.canvas
+        canvas.mpl_connect('button_press_event', self.button_press_callback)
+        canvas.mpl_connect('button_release_event', self.button_release_callback)
+
+    ### EVENTS ###
+
+    def button_press_callback(self, event):
+        if (event.button == 1 and event.dblclick == True):
+            self.db_click = True
+            self.points.append((int(event.xdata), int(event.ydata)))
+            cv2.circle(self.circle_img, self.points[-1], self.circle_diameter, self.color_circle, -1)
+        elif event.button == 3:
+            print('You have stored all points, close the window to end a program')
+
+    def button_release_callback(self, event):
+        if self.db_click == True:
+            self.db_click = False
+            self.ax.images.pop()
+            self.ax.imshow(self.circle_img, alpha=0.2)
+            plt.draw()

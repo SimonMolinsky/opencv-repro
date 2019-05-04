@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-from scripts.select_aoi import SelectAreaOfInterest
+from scripts.select_aoi import SelectAreaOfInterest, SelectPoints
 from scripts.segmentation import mask_region, segment_region
 
 
@@ -20,6 +20,18 @@ def draw_mask(base_image):
     paint = SelectAreaOfInterest(ax, upper_layer)
     plt.show()
     return(paint.lines, paint.line_thickness)
+
+
+def get_dimensions(reprojected_image):
+    img = reprojected_image
+    upper_layer = np.zeros(img.shape, np.uint8)
+    ax = plt.subplot(111)
+    ax.imshow(img)
+    ax.imshow(upper_layer, alpha=0.02)
+    
+    paint = SelectPoints(ax, upper_layer)
+    plt.show()
+    return(paint.points)
 
 
 def reproject_masked_region(masked_region, coordinates, thickness):
@@ -89,7 +101,6 @@ if __name__ == '__main__':
         roi = draw_mask(image)
         mask = mask_region(image, roi[0], roi[1])
         img_slice = project_to_horizontal_line(mask[0], roi[0], roi[1])
-        plt.figure()
-        plt.imshow(img_slice)
-        plt.show()
+        dimension_points = get_dimensions(img_slice)  # Selected points in the final image
+        print('Selected points:', dimension_points)
     
